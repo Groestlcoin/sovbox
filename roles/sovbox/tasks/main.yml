@@ -25,7 +25,7 @@
   tags:
   - firewall
   - sovbox
-    
+
 
 - name: Disable empty password login
   lineinfile:
@@ -34,7 +34,7 @@
     line: "PermitEmptyPasswords no"
   tags:
   - sovbox
-  
+
 - name: restart ssh
   systemd:
     name: ssh
@@ -75,4 +75,3 @@
   command: cp /root/.ssh/authorized_keys /home/davidson/.ssh/
   tags:
     - davidson
-  

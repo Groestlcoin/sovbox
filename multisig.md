@@ -1,4 +1,4 @@
-Setting up your own node (e.g. with sovbox) is great, but when storing Bitcoin a hardware wallet is the first step to better security.
+Setting up your own node (e.g. with sovbox) is great, but when storing Groestlcoin a hardware wallet is the first step to better security.
 
 
 ## Cases to think about
@@ -24,14 +24,3 @@ multi-sig wallet.
 If suddenly it appears that an elaborate supply chain attack was done on Trezor many years ago, and funds in Trezors are starting to move.
 
 ....
-
-
-
-## Further reading
-
-- https://twitter.com/geosgaen0/status/1160808473010946049
-
-
-### Related podcasts
-
-- https://twitter.com/stephanlivera/status/1159444393583005696

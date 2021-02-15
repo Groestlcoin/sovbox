@@ -5,6 +5,6 @@
 
   roles:
     - sovbox
-    - { name: bitcoind, tags: ['bitcoind'] }
+    - { name: groestlcoind, tags: ['groestlcoind'] }
     - { name: electrumx, tags: ['electrumx'] }
-    - { name: btc-rpc-explorer, tags: ['btc-rpc-explorer'] }
+    - { name: grs-rpc-explorer, tags: ['grs-rpc-explorer'] }

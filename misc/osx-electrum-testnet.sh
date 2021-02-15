@@ -1,3 +1,3 @@
 #!/bin/bash
 
-open -n /Applications/Electrum.app --args --testnet
+open -n /Applications/Electrum-GRS.app --args --testnet

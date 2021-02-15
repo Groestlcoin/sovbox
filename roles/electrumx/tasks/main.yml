@@ -1,6 +1,6 @@
 ---
 -
-- name: Firewall 
+- name: Firewall
   ufw:
     port: '50001'  # Not sure if 50001 needs to be open
     rule: limit
@@ -10,7 +10,7 @@
   - firewall
   - electrumx
 
-- name: Firewall 
+- name: Firewall
   ufw:
     port: '50002'
     rule: limit
@@ -20,7 +20,7 @@
   - firewall
   - electrumx
 
-  
+
 - name: Install packages for electrumx
   apt: pkg={{ item }}
   with_items: "{{ apt_packages }}"
@@ -37,10 +37,10 @@
     - systemd
     - electrumx
 
-#- name: electrumx, pip install rocksdb
-#  shell: pip3 install python-rocksdb
-#  tags:
-#    - electrumx
+- name: Install groestlcoin_hash
+  shell: pip3 install groestlcoin_hash
+  tags:
+    - electrumx
 
 - name: Git clone electrumx repo
   git:
@@ -57,7 +57,7 @@
     chdir: /home/electrumx/electrumx
   tags:
     - electrumx
-    
+
 - name: electrum db
   file:
     path: /var/lib/electrumx-db
@@ -66,7 +66,7 @@
   tags:
     - systemd
     - electrumx
-        
+
 - name: copy Electrumx systemd conf
   copy:
     src: /home/electrumx/electrumx/contrib/systemd/electrumx.service
@@ -84,27 +84,27 @@
     - electrumx
     - etc
 
-- name: extract rpc user and password from /etc/bitcoin/bitcoin.conf
+- name: extract rpc user and password from /etc/groestlcoin/groestlcoin.conf
   slurp:
-    src: /etc/bitcoin/bitcoin.conf
-  register: bitcoinconf
+    src: /etc/groestlcoin/groestlcoin.conf
+  register: groestlcoinconf
   tags:
   - rpc
   - electrumx
   - rpcelx
 
-- name: get password to connect to bitcoind
+- name: get password to connect to groestlcoind
   set_fact:
-    rpc_pass: "{{ bitcoinconf['content'] | b64decode | regex_search('password=(.*)') | regex_replace('password=', '') }}"
-  tags: 
+    rpc_pass: "{{ groestlcoinconf['content'] | b64decode | regex_search('password=(.*)') | regex_replace('password=', '') }}"
+  tags:
   - rpc
   - electrumx
   - rpcelx
-  
-- name: get username to connect to bitcoind
+
+- name: get username to connect to groestlcoind
   set_fact:
-    rpc_user: "{{ bitcoinconf['content'] | b64decode | regex_search('user=(.*)') | regex_replace('user=', '') }}"
-  tags: 
+    rpc_user: "{{ groestlcoinconf['content'] | b64decode | regex_search('user=(.*)') | regex_replace('user=', '') }}"
+  tags:
   - rpc
   - electrumx
   - rpcelx
@@ -159,4 +159,3 @@
     - electrum
     - rpc
     - rpcelx
-

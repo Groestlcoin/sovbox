@@ -1,7 +1,7 @@
 # sovbox
 
-**sovbox** is a collection of maximalist Ansible scripts to easily set
-up a Bitcoin full node on a headless server, that is able to serve
+**sovbox** is a collection of Ansible scripts to easily set
+up a Groestlcoin full node on a headless server, that is able to serve
 many different wallets without any of the configuration based on a
 specific wallet (such as xpubs) and provide as much financial privacy
 and sovereignty as possible.
@@ -9,16 +9,15 @@ and sovereignty as possible.
 *Note sovbox is still early stage. Use this at your own risk. Don't
 trust, verify.*
 
-[Wanna help?](https://github.com/Furunodo/sovbox/issues/new)
+[Wanna help?](https://github.com/Groestlcoin/sovbox/issues/new)
 
 ## Why?
 
 It is born out of the personal need to set up a box for more
 sovereignty over store of value.  Many highly knowledgeable people
 talk about the importance of running a full node, but actually setting
-up a full node and connecting it to a Bitcoin wallet is still far from
-straightforward if you don't want to purchase and run a Nodl or Casa
-Node.
+up a full node and connecting it to a Groestlcoin wallet is still far from
+straightforward.
 
 It's a bit like [Node
 Launcher](https://github.com/lightning-power-users/node-launcher)
@@ -34,15 +33,13 @@ code well.
 
 1. make sure you have a box you can `ssh` into, this can be an old
   laptop, Raspberry Pi with external drive or a server you're renting,
-  you will need at least 200GB of storage space
+  you will need at least 20GB of storage space
 
 2. install `ansible` on your laptop or desktop
 
 3. copy hosts.example to /etc/ansible/hosts and add your hostname
 
 4. run `ansible-playbook -v sovbox.yml` from `sovbox/`
-
-5. bonus: [Run more than one node, some public, some private 😉](https://twitter.com/wiz/status/1149934989737246720)
 
 
 ## How we create sovbox
@@ -55,7 +52,7 @@ to trust third parties
 
 ## Status
 
-- [x] role: Bitcoin full node
+- [x] role: Groestlcoin full node
 - [x] role: ElectrumX
 - [x] mostly works on Ubuntu 18 LTS
 - [x] randomly generate RPC user/pass
@@ -64,10 +61,7 @@ to trust third parties
 - [ ] travis-ci.org
 - [ ] checksums? verify code?
 - [ ] more tor https://github.com/bitcoin/bitcoin/blob/master/doc/tor.md
-- [ ] role: [samurai dojo](https://github.com/Samourai-Wallet/samourai-dojo/blob/master/doc/DOCKER_setup.md)
-- [ ] role: [btcpayserver](https://github.com/btcpayserver/btcpayserver)
-- [ ] role: [lightning watchtower](https://medium.com/@wbobeirne/testing-out-watchtowers-with-a-simulated-breach-f1ad22c01112)?
-- [ ] blockstream satellite support? fetch lightning messages and serve them through website?
+- [ ] role: [grspayserver](https://github.com/Groestlcoin/btcpayserver)
 - [ ] noob-friendly docs
 
 
@@ -77,13 +71,6 @@ to trust third parties
 
 A machine running Linux and has enough disk space, that you can `ssh`
 into.
-
-
-### How is this different from Nodl?
-
-Nodl is selling hardware, that works out of the box. This is great,
-but it's also great if you can use an old laptop or a Raspberry Pi
-with an external drive.
 
 
 ### How is this different from Node Launcher?
@@ -100,32 +87,9 @@ a dedicated or cloud server.
 Someone who wants a full node but doesn't want to keep it running at
 home, e.g. nomads or students living in a dorm.
 
-Someone who wants to use an old machine for this, instead of buying
-something new and fancy like Nodl or a [Casa
-Node](https://keys.casa/).
-
 Someone who wants to know more precisely what software is running.
 
 
 ### Will there be a GUI?
 
 Maybe later.
-
-
-### Will you support my shitcoin so and so?
-
-No, but you're free to fork.
-
-
-## Useful resources
-
-- https://bitcoin-only.com
-- https://stephanlivera.com/
-- https://bitzuma.com/posts/compile-bitcoin-core-from-source-on-ubuntu/
-
-
-### Related projects
-
-- https://github.com/k3tan172/ubuntu-node-box An extensive guide to building your financial sovereignty on Ubuntu 18.04
-- https://github.com/lightning-power-users/node-launcher
-

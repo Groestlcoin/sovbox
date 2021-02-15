@@ -1,0 +1,90 @@
+---
+-
+- name: install packages for groestlcoind
+  apt: pkg={{ item }}
+  with_items: "{{ apt_packages }}"
+
+- name: Create groestlcoind user, groestlcoin core will run as groestlcoind user
+  user:
+    name: groestlcoind
+    state: present
+    home: /home/groestlcoind
+  tags:
+    - systemd
+
+- name: Git clone the groestlcoin repository
+  git:
+    repo: https://github.com/groestlcoin/groestlcoin
+    dest: /home/groestlcoind/groestlcoin
+    version: v2.21.0
+    # stable
+
+- name: groestlcoin autogen.sh
+  shell: ./autogen.sh
+  args:
+    chdir: /home/groestlcoind/groestlcoin
+
+- name: groestlcoin configure, without the GUI wallet
+  shell: ./configure --disable-wallet
+  args:
+    chdir: /home/groestlcoind/groestlcoin
+  tags:
+    - grsconf
+
+- name: make groestlcoin, compile the code, with as many cores as your processor
+  shell: make -j $(nproc)
+  args:
+    chdir: /home/groestlcoind/groestlcoin
+  tags:
+    - make
+
+- name: make install groestlcoin, install the complied code onto your machine
+  shell: make install
+  args:
+    chdir: /home/groestlcoind/groestlcoin
+  tags:
+    - make
+
+- name: Create groestlcoind data directory
+  file:
+    path: /var/lib/groestlcoind
+    owner: groestlcoin
+    state: directory
+  tags:
+    - systemd
+
+
+- name: systemd conf
+  copy:
+    src: files/groestlcoind.service
+    dest: /etc/systemd/system/groestlcoind.service
+  tags:
+    - systemd
+
+- name: /etc/groestlcoin
+  file:
+    state: directory
+    path: /etc/groestlcoin
+    owner: groestlcoind
+  tags:
+    - systemd
+
+- name: groestlcoin.conf.j2
+  template:
+    src: files/groestlcoin.conf.j2
+    dest: /etc/groestlcoin/groestlcoin.conf
+  tags:
+    - conf
+    - systemd
+    - rpc
+
+
+- name: restart groestlcoind
+  systemd:
+    name: groestlcoind
+    state: restarted
+    enabled: yes
+    daemon_reload: yes
+  tags:
+    - systemd
+    - rpc

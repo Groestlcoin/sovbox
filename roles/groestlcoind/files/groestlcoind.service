@@ -1,47 +1,47 @@
 # It is not recommended to modify this file in-place, because it will
 # be overwritten during package upgrades. If you want to add further
 # options or overwrite existing ones then use
-# $ systemctl edit bitcoind.service
+# $ systemctl edit groestlcoind.service
 # See "man systemd.service" for details.
 
 # Note that almost all daemon options could be specified in
-# /etc/bitcoin/bitcoin.conf, except for those explicitly specified as arguments
+# /etc/groestlcoin/groestlcoin.conf, except for those explicitly specified as arguments
 # in ExecStart=
 
 [Unit]
-Description=Bitcoin daemon
+Description=Groestlcoin daemon
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/bitcoind -daemon \
-                            -pid=/run/bitcoind/bitcoind.pid \
-                            -conf=/etc/bitcoin/bitcoin.conf \
-                            -datadir=/var/lib/bitcoind
+ExecStart=/usr/local/bin/groestlcoind -daemon \
+                            -pid=/run/groestlcoind/groestlcoind.pid \
+                            -conf=/etc/groestlcoin/groestlcoin.conf \
+                            -datadir=/var/lib/groestlcoind
 
 # Process management
 ####################
 
 Type=forking
-PIDFile=/run/bitcoind/bitcoind.pid
+PIDFile=/run/groestlcoind/groestlcoind.pid
 Restart=on-failure
 
 # Directory creation and permissions
 ####################################
 
-# Run as bitcoin:bitcoin
-User=bitcoind
-Group=bitcoind
+# Run as groestlcoind:groestlcoind
+User=groestlcoind
+Group=groestlcoind
 
-# /run/bitcoind
-RuntimeDirectory=bitcoind
+# /run/groestlcoind
+RuntimeDirectory=groestlcoind
 RuntimeDirectoryMode=0710
 
-# /etc/bitcoin
-ConfigurationDirectory=bitcoin
+# /etc/groestlcoin
+ConfigurationDirectory=groestlcoin
 ConfigurationDirectoryMode=0710
 
-# /var/lib/bitcoind
-StateDirectory=bitcoind
+# /var/lib/groestlcoind
+StateDirectory=groestlcoind
 StateDirectoryMode=0710
 
 # Hardening measures
